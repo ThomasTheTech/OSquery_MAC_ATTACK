@@ -1,0 +1,14 @@
+{"platform": "MAC",
+	"queries": {
+        "Crontab Monitoring": {
+			"query": "SELECT event, minute, hour, day_of_month, month, day_of_week, command, path FROM crontab WHERE command LIKE regex_match(command, (SELECT v FROM __vars WHERE n = "command_pattern"), 0) AND path LIKE regex_match(path, (SELECT v FROM __vars WHERE n = "path_pattern"), 0);",
+			"interval": 3600,
+			"description": "parses the lines of the system and user cron/tab files and returns the contents"
+        },
+        "Shell History Monitoring": {
+			"query": "SELECT u.username, sh.time, sh.command, sh.history_file FROM users u CROSS JOIN shell_history sh USING (uid) WHERE sh.command LIKE regex_match(sh.command, (SELECT v FROM __vars WHERE n = "command_line_pattern"), 0) AND u.username LIKE regex_match(u.username, (SELECT v FROM __vars WHERE n = "username_pattern"), 0);",
+			"interval": 3600,
+			"description": "Monitors the history of shell commands executed on the host: "
+        }
+    }
+}    
