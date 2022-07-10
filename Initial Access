@@ -1,0 +1,10 @@
+{
+	"platform": "MAC",
+	"queries": {
+		"linux_sudoers": {
+			"query": "SELECT g.groupname, u.username, g.comment FROM groups g LEFT JOIN user_groups ug ON g.gid=ug.gid LEFT JOIN users u ON ug.uid=u.uid;",
+			"interval": 3600,
+			"description": "Retrieves the group name username group description for system user groups:"
+        }
+    }
+}
